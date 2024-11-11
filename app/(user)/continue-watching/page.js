@@ -2,7 +2,7 @@
 import ContinueWatchingCard from "@/components/Cards/ContinueWatchingCard/ContinueWatchingCard"
 import { getWatchProgress } from "@/utils/GetProgress"
 import { Fragment, useEffect, useState } from "react"
-
+export const runtime = 'edge';
 
 const ContinueWatching = () => {
   const [mappedData, setMappedData] = useState([]);
