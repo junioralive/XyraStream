@@ -16,7 +16,7 @@ export default async function RootLayout({ children }) {
         {children}
 
         {/* Footer at the bottom of every page */}
-        {/* <Footer /> */}
+        <Footer />
 
         <ToastContainer draggable theme="dark" />
       </body>

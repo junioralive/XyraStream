@@ -11,7 +11,8 @@ export function WatchAreaContextProvider({ children, MovieInfo, MovieId }) {
   const searchparam = useSearchParams();
 
   const [episode, setEpisode] = useState(parseInt(searchparam.get('ep')) || 1);
-  const [season, setSeason] = useState(parseInt(searchparam.get('se')) || 1); // Set default to 1 if undefined
+  const [season, setSeason] = useState(parseInt(searchparam.get('se')));
+  console.log(season);
   const [watchInfo, setWatchInfo] = useState({ loading: true });
   const [episodes, setEpisodes] = useState([]);
   const [episodeLoading, setEpisodeLoading] = useState(true);
@@ -22,14 +23,15 @@ export function WatchAreaContextProvider({ children, MovieInfo, MovieId }) {
         const watchdata = episodes.find(item => item.episode_number === episode);
         setWatchInfo(prev => ({ ...prev, watchdata }));
       } catch (error) {
-        handleError(error);
+        handleError(error, isMounted);
       }
     };
 
     if (MovieInfo?.type !== "tv") {
       fetchData();
     }
-  }, [episode, episodes, MovieInfo]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [episode]);
 
   useEffect(() => {
     if (!MovieInfo || MovieInfo.type !== "tv") return; // Only proceed if it's a TV type
@@ -58,12 +60,15 @@ export function WatchAreaContextProvider({ children, MovieInfo, MovieId }) {
 
   const handleNoEpisodeFound = () => {
     setWatchInfo({ loading: false });
+    toast(`No episodes found`);
   };
 
-  const handleError = (error) => {
+  const handleError = (error, isMounted) => {
     console.error('Failed to fetch watch data:', error);
-    setWatchInfo({ loading: false, error: 'Failed to fetch data' });
-    toast('Failed to fetch data');
+    if (isMounted) {
+      setWatchInfo({ loading: false, error: 'Failed to fetch data' });
+      toast('Failed to fetch data');
+    }
   };
 
   const contextValue = useMemo(() => ({

@@ -55,25 +55,17 @@ const EpisodeSelector = () => {
   useEffect(() => {
     if (!MovieId || !episode || !season) return;
   
-    // Retrieve or initialize storage data for this movie or show
-    const storageKey = `playing.${MovieId}`;
-    const storageData = JSON.parse(localStorage.getItem(storageKey) || "{}");
+    const storageKey = `playing.${MovieId}.season${season}`;
+    const storedItems = JSON.parse(localStorage.getItem(storageKey) || "[]");
   
-    // Initialize season data if it doesn't exist
-    if (!storageData[`season${season}`]) {
-      storageData[`season${season}`] = [];
+    if (!storedItems.includes(episode)) {
+      const updatedItems = [...storedItems, episode];
+      localStorage.setItem(storageKey, JSON.stringify(updatedItems));
+      setWatchedEP(updatedItems);
+    } else {
+      setWatchedEP(storedItems);
     }
   
-    // Update watched episodes for the current season if not already included
-    if (!storageData[`season${season}`].includes(episode)) {
-      storageData[`season${season}`].push(episode);
-      localStorage.setItem(storageKey, JSON.stringify(storageData));
-    }
-  
-    // Update the watchedEP state with the episodes for the current season
-    setWatchedEP(storageData[`season${season}`]);
-  
-    // Save progress with additional episode data if MovieInfo and episodes are available
     if (MovieInfo && episodes) {
       const thumbnail = MovieInfo.poster_path
         ? `https://image.tmdb.org/t/p/w500${MovieInfo.poster_path}`

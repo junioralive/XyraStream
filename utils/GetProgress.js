@@ -1,4 +1,9 @@
 export const getWatchProgress = (isSlice = true) => {
+  // Check if the window object is defined (i.e., if we're in the browser)
+  if (typeof window === 'undefined') {
+    return []; // Return an empty array on the server side
+  }
+
   const animeData = JSON.parse(localStorage.getItem("watch_history") || "{}");
 
   const entries = Object.entries(animeData);
@@ -24,7 +29,7 @@ export const getWatchProgress = (isSlice = true) => {
     videoURL: item.videoURL || '', // same for videoURL
     currentTime: item.currentTime || 0, // fallback for currentTime
     duration: item.duration || 0, // fallback for duration
-    date: item.updatedDate || 0, // fallback for updatedDate,
+    date: item.updatedDate || 0, // fallback for updatedDate
     episode: item.episode || 1,
     season: item.season || 1,
   }));
