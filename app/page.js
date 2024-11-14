@@ -1,4 +1,5 @@
 import Collection from "@/content/Home/Collection";
+import Provider from "@/content/Home/Providers";
 import Herosection from "@/content/Home/HeroSection/Herosection"
 import Popular from "@/content/Home/Popular";
 import TopRated from "@/content/Home/Season";
@@ -20,6 +21,7 @@ const Home = async () => {
       <div className="w-full flex flex-col items-center z-10 relative main-responsive">
         <Trending data={trendingdata} />
         <WatchHistory />
+        <Provider />
         <Collection />
         <Popular />
         <TopRated data={top_rateddata} />

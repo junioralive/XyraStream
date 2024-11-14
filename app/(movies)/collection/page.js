@@ -1,4 +1,4 @@
-import Movies from "@/content/catalog/Movies"
+import Movies from "@/content/collection/Movies"
 import { Fragment } from "react"
 
 const Page = () => {
@@ -12,7 +12,7 @@ const Page = () => {
           <div className="w-[-webkit-fill-available] h-[1px] absolute bg-[#212029] top-[1px]"></div>
 
           <div className="mt-[15px] flex justify-between items-center">
-            <h1 className="text-[#ffffffea] font-medium text-[23px] font-['poppins']">Catalog</h1>
+            <h1 className="text-[#ffffffea] font-medium text-[23px] font-['poppins']">Collection</h1>
 
           </div>
 

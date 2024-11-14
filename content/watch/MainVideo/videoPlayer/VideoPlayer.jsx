@@ -13,6 +13,7 @@ const VideoPlayer = ({ getInstance }) => {
       frameBorder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       title={MovieInfo?.title || MovieInfo?.name || MovieInfo?.original_name || MovieInfo?.original_title}
+      sandbox= "allow-scripts allow-same-origin allow-presentation"
     />
     : <VideoPlayerContainer getInstance={getInstance} />;
 };

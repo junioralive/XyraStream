@@ -92,7 +92,13 @@ const Search = () => {
         />
       </div>
 
-      {searchValue !== "" && <SearchResults searchValue={searchValue} />}
+      {searchValue !== "" && (
+        <SearchResults
+          searchValue={searchValue}
+          setIsSearchBoxOpen={setIsSearchBoxOpen}
+          setSearchValue={setSearchValue}
+        />
+      )}
     </div>
   );
 }

@@ -19,26 +19,28 @@ const Option = () => {
           onClick={() => setWatchSetting(prev => ({ ...prev, isExpanded: !prev.isExpanded }))}
         ><span>{watchSetting.isExpanded ? <BiCollapse /> : <LuExpand />}</span> {watchSetting.isExpanded ? "Collapse" : "Expand"}</div>
 
-        <div
+        {/* <div
           className="flex items-center gap-2 cursor-pointer"
           onClick={() => setWatchSetting(prev => ({ ...prev, light: !prev.light }))}
         >
           <span><FaLightbulb /></span>
           Light
           <span className="text-[#e26bbd]">{watchSetting.light ? "On" : "Off"}</span>
-        </div>
+        </div> */}
 
-        <div
+        {/* <div
           className="flex items-center gap-2 cursor-pointer"
           onClick={() => setWatchSetting(prev => ({ ...prev, autoPlay: !prev.autoPlay }))}
-        >Auto Play <span className="text-[#e26bbd]">{watchSetting.autoPlay ? "On" : "Off"}</span></div>
+        >Auto Play <span className="text-[#e26bbd]">{watchSetting.autoPlay ? "On" : "Off"}</span></div> */}
 
-        <div
+        {/* <div
           className="flex items-center gap-2 cursor-pointer"
           onClick={() => setWatchSetting(prev => ({ ...prev, autoNext: !prev.autoNext }))}
-        >Auto Next <span className="text-[#e26bbd]">{watchSetting.autoNext ? "On" : "Off"}</span></div>
+        >Auto Next <span className="text-[#e26bbd]">{watchSetting.autoNext ? "On" : "Off"}</span></div> */}
 
-        <div className="flex items-center gap-2 cursor-pointer">Auto Skip Intro <span className="text-[#e26bbd]">Off</span></div>
+        {/* <div className="flex items-center gap-2 cursor-pointer">Auto Skip Intro 
+          <span className="text-[#e26bbd]">Off</span></div> */}
+
       </div>
 
       <div className="flex gap-3">

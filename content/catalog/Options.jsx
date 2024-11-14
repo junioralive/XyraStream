@@ -29,8 +29,6 @@ const Options = () => {
     router.push(`/catalog${queryParams.toString() ? `?${queryParams}` : ""}`);
   }, [search, type, isAdult]);
 
-
-
   return (
     <div className="w-full flex max-[880px]:flex-col gap-4 mb-8">
       <div className="bg-[#242735] border-[#39374b] text-[15px] text-slate-200 w-full px-[24px] font-['poppins'] rounded-md py-1 border flex items-center justify-center gap-2">
@@ -54,14 +52,13 @@ const Options = () => {
       {/* show adult content */}
       <CatalogSelect
         data={[
-          { key: true, value: "Yep, show me" },
-          { key: false, value: "Hell, nah" },
+          { key: true, value: "Adult" },
+          { key: false, value: "Non Adult" },
         ]}
         active={isAdult}
         setActive={setIsAdult}
         ShouldBeKey={true}
       />
-
 
       <div
         className="bg-[#242735] border-[#39374b] cursor-pointer text-[15px] text-white w-full px-[24px] font-['poppins'] rounded-md py-1 border flex items-center justify-center gap-2"

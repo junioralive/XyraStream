@@ -21,7 +21,7 @@ const Select = ({ data, defaultValue, setSelected }) => {
       <div
         className="relative text-[15px] bg-[#406c807a] text-slate-200 cursor-pointer w-full px-[24px] font-['poppins'] rounded-md py-1 border-2 border-[#3f72896e] flex items-center justify-center gap-2"
         onClick={() => setisOpened({ ...isOpened, opened: !isOpened?.opened })}
-      >{data[isOpened?.id] ? data[isOpened?.id] : "1 - 80"} <span className="text-md"><IoIosArrowDown /></span>
+      >{data[isOpened?.id] ? data[isOpened?.id] : "Nothing here"} <span className="text-md"><IoIosArrowDown /></span>
       </div>
 
       {isOpened?.opened ? <div className="bg-[#406c807a] p-1 rounded-md mt-1 flex flex-col gap-1 absolute z-20 backdrop-blur-lg w-full">
