@@ -1,4 +1,4 @@
-"use client"
+"use client";
 /* eslint-disable react-hooks/exhaustive-deps */
 import CatalogSelect from "@/components/ui/CatalogSelect";
 import { useCallback, useEffect, useState } from "react";
@@ -32,7 +32,7 @@ const Options = () => {
     { key: 10770, value: "TV Movie" },
     { key: 53, value: "Thriller" },
     { key: 10752, value: "War" },
-    { key: 37, value: "Western" }
+    { key: 37, value: "Western" },
   ];
 
   const tvGenres = [
@@ -51,14 +51,28 @@ const Options = () => {
     { key: 10766, value: "Soap" },
     { key: 10767, value: "Talk" },
     { key: 10768, value: "War & Politics" },
-    { key: 37, value: "Western" }
+    { key: 37, value: "Western" },
   ];
 
-  const [type, setType] = useState(typeData.find(item => item?.key === (searchParams.get("type") || "tv")));
+  const [type, setType] = useState(typeData.find(item => item.key === (searchParams.get("type") || "tv")));
   const [search, setSearch] = useState(searchParams.get("q") || "");
   const [genre, setGenre] = useState(null);
   const [genreData, setGenreData] = useState(movieGenres);
 
+  // Update genre data based on type
+  useEffect(() => {
+    if (type?.key === "tv") {
+      setGenreData(tvGenres);
+      const initialGenre = tvGenres.find(g => g.key === parseInt(searchParams.get("genre"))) || tvGenres[0];
+      setGenre(initialGenre);
+    } else {
+      setGenreData(movieGenres);
+      const initialGenre = movieGenres.find(g => g.key === parseInt(searchParams.get("genre"))) || movieGenres[0];
+      setGenre(initialGenre);
+    }
+  }, [type]);
+
+  // Apply filters when search, type, or genre changes
   const applyFilters = useCallback(() => {
     const queryParams = new URLSearchParams({
       ...(search && { q: search }),
@@ -70,35 +84,24 @@ const Options = () => {
   }, [search, type, genre]);
 
   useEffect(() => {
-    if (type?.key === "tv") {
-      setGenreData(tvGenres);
-      setGenre(tvGenres[0]);
-    } else {
-      setGenreData(movieGenres);
-      setGenre(movieGenres[0]);
-    }
     applyFilters();
-  }, [type]);
-
-  useEffect(() => {
-    applyFilters();
-  }, [genre, search]);
+  }, [genre, search, type]);
 
   return (
     <div className="w-full flex max-[880px]:flex-col gap-4 mb-8">
       <CatalogSelect
         data={typeData}
         active={type}
-        setActive={(value) => { setType(value); }}
+        setActive={(value) => setType(value)}
       />
 
       <CatalogSelect
         data={genreData}
         active={genre}
-        setActive={(value) => { setGenre(value); }}
+        setActive={(value) => setGenre(value)}
       />
     </div>
   );
-}
+};
 
 export default Options;

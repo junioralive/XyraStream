@@ -6,7 +6,7 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io"
 
 
 const Dropdown = ({ data, checkBoxItem, setCheckBoxItem }) => {
-  const dropdownItems = ["All", ...data]
+  const dropdownItems = [...data]
   const [isOpened, setIsOpened] = useState(false)
 
   return (

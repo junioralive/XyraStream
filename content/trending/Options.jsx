@@ -1,4 +1,4 @@
-"use client"
+"use client";
 /* eslint-disable react-hooks/exhaustive-deps */
 import CatalogSelect from "@/components/ui/CatalogSelect";
 import { useCallback, useEffect, useState } from "react";
@@ -27,10 +27,12 @@ const Options = () => {
     { key: 584, value: "Discovery+" }
   ];
 
-  const [type, setType] = useState(typeData.find(item => item?.key === (searchParams.get("type") || "tv")));
+  // Initialize states based on URL search parameters or defaults
+  const [type, setType] = useState(typeData.find(item => item.key === (searchParams.get("type") || "tv")));
   const [search, setSearch] = useState(searchParams.get("q") || "");
-  const [provider, setProvider] = useState(null);
+  const [provider, setProvider] = useState(Providers.find(item => item.key === parseInt(searchParams.get("provider"))) || Providers[0]);
 
+  // Function to apply filters based on selected options
   const applyFilters = useCallback(() => {
     const queryParams = new URLSearchParams({
       ...(search && { q: search }),
@@ -41,37 +43,30 @@ const Options = () => {
     router.push(`/trending${queryParams.toString() ? `?${queryParams}` : ""}`);
   }, [search, type, provider]);
 
+  // Update URL when type changes
   useEffect(() => {
-    // Reset provider on type change if necessary and apply filters immediately
-    setProvider(Providers[0]);
     applyFilters();
   }, [type]);
 
+  // Update URL when provider changes
   useEffect(() => {
-    // Apply filters immediately on provider change
     applyFilters();
   }, [provider]);
 
   return (
     <div className="w-full flex max-[880px]:flex-col gap-4 mb-8">
-      {/* Type selector (e.g., movie, tv, or all) */}
+      {/* Type selector */}
       <CatalogSelect
         data={typeData}
         active={type}
-        setActive={(newType) => {
-          setType(newType);
-          applyFilters();
-        }}
+        setActive={(newType) => setType(newType)}
       />
 
       {/* Provider selector */}
       <CatalogSelect
         data={Providers}
         active={provider}
-        setActive={(newProvider) => {
-          setProvider(newProvider);
-          applyFilters();
-        }}
+        setActive={(newProvider) => setProvider(newProvider)}
       />
     </div>
   );
