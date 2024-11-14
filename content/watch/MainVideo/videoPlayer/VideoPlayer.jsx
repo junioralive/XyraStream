@@ -2,9 +2,9 @@ import { useWatchContext } from '@/context/Watch';
 import VideoPlayerContainer from './VideoPlayerContainer';
 
 const VideoPlayer = ({ getInstance }) => {
-  const { watchInfo, MovieInfo } = useWatchContext()
-  // return <VideoPlayerContainer getInstance={getInstance} />;
-  return watchInfo?.iframe ?
+  const { watchInfo, MovieInfo } = useWatchContext();
+
+  return watchInfo?.iframe ? (
     <iframe
       src={watchInfo?.url}
       className="aspect-video"
@@ -13,9 +13,11 @@ const VideoPlayer = ({ getInstance }) => {
       frameBorder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       title={MovieInfo?.title || MovieInfo?.name || MovieInfo?.original_name || MovieInfo?.original_title}
-      sandbox= "allow-scripts allow-same-origin allow-presentation"
+      sandbox={watchInfo?.isAdFree ? "allow-scripts allow-same-origin allow-presentation" : undefined} // Conditionally apply sandbox
     />
-    : <VideoPlayerContainer getInstance={getInstance} />;
+  ) : (
+    <VideoPlayerContainer getInstance={getInstance} />
+  );
 };
 
 export default VideoPlayer;
